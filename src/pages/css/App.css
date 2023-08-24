@@ -1,0 +1,383 @@
+@font-face {
+  font-family: "MaplestoryOTFBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*초기설정*/
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-family: MaplestoryOTFBold, AlphaSans, sans-serif !important;
+  text-decoration: none;
+}
+td {
+  padding: 10px;
+}
+
+/*header부분*/
+#header {
+  width: 100%;
+  height: 3rem;
+  position: sticky;
+  top: 0;
+  border: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid burlywood;
+  background-color: white;
+  color: black;
+  /*background-color: var(--background);*/
+  z-index: 2;
+}
+
+#header a {
+  text-decoration: none;
+  color: black;
+}
+
+#header img {
+  width: 2em;
+  margin-right: 10px;
+}
+#SearchModal .searchButton {
+  color: brown;
+  background-color: white;
+  border: 1px solid brown;
+}
+#SearchModal .searchButton:hover {
+  color: white;
+  background-color: brown;
+  border: 1px solid white;
+}
+#ModalFooter .firstButton {
+  color: brown;
+  background-color: white;
+  border: 1px solid brown;
+}
+#ModalFooter .firstButton:hover {
+  color: white;
+  background-color: brown;
+  border: 1px solid white;
+}
+.searchSpace {
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 40px;
+  padding: 5px 7px;
+  text-align: center;
+}
+#header .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+#header .LogoMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#header p {
+  height: 20px;
+  vertical-align: middle;
+  margin-bottom: 0;
+}
+
+#header .header_container {
+  width: 100%;
+  max-width: 69.2rem;
+  height: 100%;
+  margin: 0 2.4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.wrapper .clickable-layer {
+  width: 8rem;
+  height: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  line-height: 3rem;
+  background-color: var(--primary);
+  font-size: 1.5rem;
+  color: var(--on-primary);
+  border-radius: 4px;
+  float: right;
+}
+
+.clickable-layer:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--neutral);
+  border-radius: inherit;
+}
+/*Main페이지*/
+.main {
+  width: 100%;
+  height: 50rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  border-bottom: 1px solid gray;
+  background-color: white;
+  color: black;
+  /*background-color: var(--background);*/
+  z-index: 2;
+  background-color: white;
+}
+.presentPrice {
+  margin-top: 10px;
+  display: flex;
+}
+.presentPrice p:nth-child(2) {
+  margin-left: 10px;
+  color: palevioletred;
+}
+
+.buyPrice {
+  display: flex;
+}
+.buyPrice p:nth-child(2) {
+  margin-left: 10px;
+  color: palevioletred;
+}
+
+.sellPrice {
+  display: flex;
+}
+.sellPrice p:nth-child(2) {
+  margin-left: 10px;
+  color: palevioletred;
+}
+
+.main_container {
+  width: 100%;
+  height: 100%;
+  margin: 0 2.4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.Left {
+  width: 50%;
+  height: 100%;
+  border-right: 1px solid burlywood;
+  float: left;
+  left: 0;
+}
+.Right {
+  width: 50%;
+  height: 100%;
+  float: right;
+  right: 0;
+}
+.first {
+  width: 100%;
+  height: 50%;
+  top: 0px;
+  border-bottom: 1px solid burlywood;
+  padding: 20px;
+  overflow: scroll;
+}
+.second {
+  padding: 20px;
+  overflow: scroll;
+}
+.first_name {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.second_name {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.Graph {
+  margin: 0 20px;
+}
+.stockLogo {
+  display: flex;
+  font-size: 20px;
+}
+
+.stockLogo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.stockLogo_small {
+  display: flex;
+  font-size: 20px;
+}
+.stockLogo_small img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.stockInfo .cospi {
+  color: gray;
+  font-size: 15px;
+}
+
+.stockInfo .stockContent {
+  margin-left: 10px;
+}
+
+.stockInfo .stockTable {
+  width: 100%;
+  margin-top: 10px;
+  border-top: 1px solid lightcoral;
+  border-bottom: 1px solid lightcoral;
+}
+.stockInfo .stockTable td:first-child {
+  color: brown;
+}
+
+#FinancialInfo td:nth-child(1) {
+  color: brown;
+}
+
+.themeLayout {
+  display: flex;
+}
+
+.themeButton {
+  width: 80px;
+  height: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+  background-color: gray;
+  color: black;
+  border-radius: 10%;
+  font-size: 10px;
+}
+
+.gray-line td:first-child {
+  border-top: 1px solid gray;
+  border-collapse: collapse;
+}
+
+#Recommendation {
+  display: flex;
+}
+
+#Recommendation .left {
+  width: 70%;
+}
+#Recommendation .right {
+  width: 30%;
+}
+.right .circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 75px;
+  text-align: center;
+  margin: 0 auto;
+  font-size: 12px;
+  vertical-align: middle;
+  line-height: 150px;
+}
+.right .green {
+  background-color: rgb(25, 135, 84);
+}
+.right .blue {
+  background-color: rgb(13, 202, 240);
+}
+.right .yellow {
+  background-color: rgb(255, 193, 7);
+}
+.right .red {
+  background-color: rgb(220, 53, 69);
+}
+
+#RecommendationFigure {
+  margin-top: 20px;
+  width: 70%;
+}
+#RecommendationFigure .progress {
+  --bs-progress-bg: white;
+}
+
+#RecommendationResult {
+  margin-top: 10px;
+  font-size: 40px;
+}
+
+#stockLogo_reco {
+  display: flex;
+  font-size: 20px;
+}
+#stockLogo_reco .stockLogo {
+  margin-right: 20px;
+}
+#stockLogo_reco img {
+  width: 30px;
+  height: 30px;
+}
+
+#ThemeListMain {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+#ThemeListMain .ThemeName {
+  margin-right: 20px;
+}
+#ThemeListMain .ThemeRate {
+  margin-right: 20px;
+}
+#ThemeListMain .ThemeProgress {
+  width: 100%;
+}
+
+.modal-dialog-custom {
+  max-width: 2500px;
+}
+
+.modal-content-custom {
+  max-width: 2500px;
+  padding: 30px;
+}

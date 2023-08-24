@@ -1,0 +1,252 @@
+@font-face {
+  font-family: "MaplestoryOTFBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-family: MaplestoryOTFBold, AlphaSans, sans-serif !important;
+  text-decoration: none;
+}
+
+/*전체 프레임*/
+#wrap {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  min-width: 1400px;
+  min-height: 780px;
+  background-image: url(../img/bg_morning.jpg);
+  background-size: cover;
+  transition: all 2s;
+}
+
+/*텍스트 박스*/
+article {
+  position: absolute;
+  top: 350px;
+  left: 150px;
+  width: 450px;
+}
+article p {
+  font-size: 50px;
+  color: #666;
+}
+article p strong {
+  color: #111;
+}
+article em {
+  font-size: 14px;
+  font-style: normal;
+  color: #333;
+}
+
+/*아이폰*/
+figure {
+  position: absolute;
+  top: 200px;
+  right: -300px;
+  width: 1226px;
+  height: 809px;
+  background-image: url(../img/phone_morning.png);
+  transition: all 2s;
+}
+figure p {
+  position: absolute;
+  top: 100px;
+  left: 137px;
+  width: 540px;
+  height: 307px;
+  overflow: hidden;
+  font-size: 60px;
+  font-weight: bold;
+  color: #333;
+  line-height: 4.6;
+  box-sizing: border-box;
+  padding-left: 50px;
+}
+figure p span {
+  position: relative;
+  z-index: 5;
+}
+@media screen and (max-width: 1000px) {
+  article {
+    display: none;
+  }
+  figure {
+    left: 0;
+    bottom: 0;
+  }
+}
+
+/*테마버튼*/
+nav {
+  position: fixed;
+  bottom: 70px;
+  left: 6%;
+  width: 88%;
+}
+nav li {
+  float: left;
+  width: 25%;
+}
+nav li a {
+  display: block;
+  width: 98%;
+  height: 35px;
+  background: #fff;
+  color: #111;
+  margin: 0 auto;
+  transition: all 0.5s;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 3;
+  letter-spacing: 3px;
+  box-sizing: border-box;
+  padding-left: 30px;
+  opacity: 0.6;
+  z-index: 1;
+  position: relative;
+}
+nav li:hover a {
+  background: #111;
+  color: #ddd;
+  opacity: 0.9;
+}
+
+/*아침 테마*/
+#wrap.morning {
+  background-image: url(../img/bg_morning.jpg);
+}
+#wrap.morning figure {
+  background-image: url(../img/phone_morning.png);
+}
+#wrap.morning article p {
+  color: #666;
+}
+#wrap.morning article p strong {
+  color: #111;
+}
+#wrap.morning article em {
+  color: #333;
+}
+#wrap.morning figure p {
+  color: #333;
+}
+#wrap.evening > img:nth-child(1) {
+  opacity: 1;
+}
+#wrap.evening > img:nth-child(2) {
+  opacity: 1;
+}
+
+/*오후 테마*/
+#wrap.afternoon {
+  background-image: url(../img/bg_afternoon.jpg);
+}
+#wrap.afternoon figure {
+  background-image: url(../img/phone_afternoon.png);
+}
+#wrap.afternoon article p {
+  color: #666;
+}
+#wrap.afternoon article p strong {
+  color: #111;
+}
+#wrap.afternoon article em {
+  color: #333;
+}
+#wrap.afternoon figure p {
+  color: #333;
+}
+#wrap.evening > img:nth-child(1) {
+  opacity: 1;
+}
+#wrap.evening > img:nth-child(2) {
+  opacity: 1;
+}
+
+/*저녁 테마*/
+#wrap.evening {
+  background-image: url(../img/bg_evening.jpg);
+}
+#wrap.evening figure {
+  background-image: url(../img/phone_evening.png);
+}
+#wrap.evening article p {
+  color: #444;
+}
+#wrap.evening article p strong {
+  color: #fff;
+}
+#wrap.evening article em {
+  color: #333;
+}
+#wrap.evening figure p {
+  color: #fff;
+}
+#wrap.evening > img:nth-child(1) {
+  opacity: 0.6;
+}
+#wrap.evening > img:nth-child(2) {
+  opacity: 0.6;
+}
+
+/*밤 테마*/
+#wrap.night {
+  background-image: url(../img/bg_night.jpg);
+}
+#wrap.night figure {
+  background-image: url(../img/phone_night.png);
+}
+#wrap.night article p {
+  color: #bbb;
+}
+#wrap.night article p strong {
+  color: #fff;
+}
+#wrap.night article em {
+  color: #888;
+}
+#wrap.night figure p {
+  color: #fff;
+}
+#wrap.night > img:nth-child(1) {
+  opacity: 0.1;
+}
+#wrap.night > img:nth-child(2) {
+  opacity: 0.1;
+}
+#wrap.night figure p img.cl1 {
+  opacity: 0.4;
+}
+#wrap.night figure p img.cl2 {
+  opacity: 0.4;
+}
+
+#wrap .btn {
+  width: 100px;
+  height: 30px;
+  z-index: 10000000;
+  border-radius: 20%;
+  background-color: #f5d0a9;
+  margin-left: 20px;
+  font-weight: 800;
+}
+#wrap .btn p {
+  color: black;
+  font-size: 15px;
+}
+#wrap .btn a {
+  text-decoration: none;
+}
+.clk_name {
+  font-size: 40px;
+}
