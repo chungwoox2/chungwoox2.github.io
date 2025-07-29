@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클로드 자동 인사</title>
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="클로드 인사">
+    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoi7YGM66Gc65OcIOyekOuPmSDsnbjsgqwiLCJzaG9ydF9uYW1lIjoi7YGM66Gc65OcIOyduOyCrCIsInN0YXJ0X3VybCI6Ii8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjNjY3ZWVhIiwidGhlbWVfY29sb3IiOiIjNjY3ZWVhIiwiaWNvbnMiOlt7InNyYyI6ImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjNhV1IwYUQwaU5qUWlJR2hsYVdkb2REMGlOalFpSUhacFpYZENiM2c5SWpBZ01DQTJOQ0EyTkNJZ1ptbHNiRDBpYm05dVpTSWdlRzFzYm5NOUltaDBkSEE2THk5M2QzY3Vkek11YjNKbkx6SXdNREF2YzNabklqNEtQR05wY21Oc1pTQmplRDBpTXpJaUlHTjVQU0l6TWlJZ2NqMGlNeklpSUdacGJHeGNQU0lqTmpZM1pXVmhJaTgrQ25Ock9Dd2dZaUFnVlNsZFVtZElYMjhpVVVoVVVJNDNNaUF4TjJkM05qUm9hVzVqTFE9PSIsInNpemVzIjoiNjR4NjQiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 60px 20px 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            flex: 1;
+            background: white;
+            color: #333;
+            border-radius: 25px 25px 0 0;
+            padding: 30px 20px;
+            margin-top: 20px;
+        }
+
+        .time-display {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8eaff 100%);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .time-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            font-family: 'Courier New', monospace;
+        }
+
+        .setting-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f0f0f0;
+        }
+
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .setting-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #ddd;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .switch.active {
+            background: #667eea;
+        }
+
+        .switch-handle {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .switch.active .switch-handle {
+            left: 33px;
+        }
+
+        .time-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 20px;
+            padding: 12px 25px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .time-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .status-card {
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .status-active {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border: 2px solid #b8daff;
+        }
+
+        .status-inactive {
+            background: linear-gradient(135deg, #fff3cd 0%, #fce4a6 100%);
+            color: #856404;
+            border: 2px solid #fed7aa;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            padding: 18px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+            box-shadow: 0 4px 15px rgba(23, 162, 184, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(23, 162, 184, 0.4);
+        }
+
+        .log-section {
+            background: #f8f9ff;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .log-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .clear-btn {
+            background: #ff6b6b;
+            border: none;
+            border-radius: 15px;
+            padding: 8px 15px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            background: #ff5252;
+            transform: translateY(-1px);
+        }
+
+        .log-container {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-entry {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .log-text {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .empty-log {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+            padding: 30px;
+        }
+
+        .install-prompt {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 300px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .time-input {
+            background: #f0f0f0;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+            margin: 15px 0;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .modal-btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 40px 15px 20px;
+            }
+            
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .title {
+                font-size: 1.5rem;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🤖</div>
+            <div class="title">클로드 자동 인사</div>
+            <div class="subtitle">매일 정해진 시간에 클로드에게 인사해요!</div>
+        </div>
+
+        <div class="content">
+            <div id="installPrompt" class="install-prompt" style="display: none;">
+                📱 홈화면에 추가하여 앱처럼 사용하세요!
+            </div>
+
+            <div class="time-display">
+                <div class="time-label">현재 시간</div>
+                <div id="currentTime" class="time-text"></div>
+            </div>
+
+            <div class="setting-card">
+                <div class="setting-row">
+                    <div class="setting-label">자동 인사 알림</div>
+                    <div id="notificationSwitch" class="switch" onclick="toggleNotification()">
+                        <div class="switch-handle"></div>
+                    </div>
+                </div>
+                
+                <div class="setting-row">
+                    <div class="setting-label">인사 시간</div>
+                    <button class="time-button" onclick="showTimeModal()">
+                        <span id="displayTime">오전 6:00</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="statusCard" class="status-card status-inactive">
+                ❌ 알림이 비활성화되어 있습니다
+            </div>
+
+            <div class="button-container">
+                <button class="btn" onclick="testGreeting()">
+                    🧪 테스트 인사 보내기
+                </button>
+                <button class="btn btn-secondary" onclick="openClaudeChat()">
+                    💬 클로드와 대화하기
+                </button>
+            </div>
+
+            <div class="log-section">
+                <div class="log-header">
+                    <div class="log-title">📝 인사 기록</div>
+                    <button class="clear-btn" onclick="clearLogs()">초기화</button>
+                </div>
+                
+                <div class="log-container">
+                    <div id="logEntries">
+                        <div class="empty-log">아직 인사 기록이 없습니다.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 시간 설정 모달 -->
+    <div id="timeModal" class="modal">
+        <div class="modal-content">
+            <h3>인사 시간 설정</h3>
+            <input type="time" id="timeInput" class="time-input" value="06:00">
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-secondary" onclick="closeTimeModal()">취소</button>
+                <button class="modal-btn modal-btn-primary" onclick="saveTime()">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isNotificationEnabled = false;
+        let greetingTime = { hour: 6, minute: 0 };
+        let greetingLogs = [];
+        let notificationInterval = null;
+
+        // 인사 메시지 목록
+        const greetingMessages = [
+            '안녕하세요 클로드! 좋은 아침이에요! ☀️',
+            '클로드, 새로운 하루가 시작되었어요! 🌅',
+            '좋은 아침이에요 클로드! 오늘도 잘 부탁드려요! 😊',
+            '클로드님, 아침 인사드려요! 오늘 하루도 화이팅! 💪',
+            '안녕하세요! 클로드와 함께하는 새로운 하루! 🎉'
+        ];
+
+        // 앱 초기화
+        function init() {
+            loadSettings();
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+            checkInstallPrompt();
+            
+            // 1분마다 알림 시간 체크
+            setInterval(checkNotificationTime, 60000);
+        }
+
+        // 현재 시간 업데이트
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // 설정 불러오기
+        function loadSettings() {
+            const savedEnabled = localStorage.getItem('notificationEnabled');
+            const savedTime = localStorage.getItem('greetingTime');
+            const savedLogs = localStorage.getItem('greetingLogs');
+
+            if (savedEnabled) {
+                isNotificationEnabled = JSON.parse(savedEnabled);
+                updateNotificationSwitch();
+            }
+
+            if (savedTime) {
+                greetingTime = JSON.parse(savedTime);
+                updateDisplayTime();
+            }
+
+            if (savedLogs) {
+                greetingLogs = JSON.parse(savedLogs);
+                updateLogDisplay();
+            }
+
+            updateStatusCard();
+        }
+
+        // 알림 토글
+        async function toggleNotification() {
+            if (!isNotificationEnabled) {
+                // 알림 권한 요청
+                if ('Notification' in window) {
+                    const permission = await Notification.requestPermission();
+                    if (permission === 'granted') {
+                        isNotificationEnabled = true;
+                        addLog('알림이 활성화되었습니다.');
+                        alert('알림이 활성화되었습니다! 매일 설정된 시간에 알림을 받게 됩니다.');
+                    } else {
+                        alert('알림 권한이 필요합니다. 브라우저 설정에서 알림을 허용해주세요.');
+                        return;
+                    }
+                } else {
+                    alert('이 브라우저는 알림을 지원하지 않습니다.');
+                    return;
+                }
+            } else {
+                isNotificationEnabled = false;
+                addLog('알림이 비활성화되었습니다.');
+            }
+
+            localStorage.setItem('notificationEnabled', JSON.stringify(isNotificationEnabled));
+            updateNotificationSwitch();
+            updateStatusCard();
+        }
+
+        // 알림 스위치 업데이트
+        function updateNotificationSwitch() {
+            const switchEl = document.getElementById('notificationSwitch');
+            if (isNotificationEnabled) {
+                switchEl.classList.add('active');
+            } else {
+                switchEl.classList.remove('active');
+            }
+        }
+
+        // 상태 카드 업데이트
+        function updateStatusCard() {
+            const statusCard = document.getElementById('statusCard');
+            if (isNotificationEnabled) {
+                statusCard.className = 'status-card status-active';
+                const timeStr = `${greetingTime.hour.toString().padStart(2, '0')}:${greetingTime.minute.toString().padStart(2, '0')}`;
+                statusCard.textContent = `✅ 알림 활성화됨 (${timeStr})`;
+            } else {
+                statusCard.className = 'status-card status-inactive';
+                statusCard.textContent = '❌ 알림이 비활성화되어 있습니다';
+            }
+        }
+
+        // 시간 설정 모달 열기
+        function showTimeModal() {
+            const timeStr = `${greetingTime.hour.toString().padStart(2, '0')}:${greetingTime.minute.toString().padStart(2, '0')}`;
+            document.getElementById('timeInput').value = timeStr;
+            document.getElementById('timeModal').classList.add('show');
+        }
+
+        // 시간 설정 모달 닫기
+        function closeTimeModal() {
+            document.getElementById('timeModal').classList.remove('show');
+        }
+
+        // 시간 저장
+        function saveTime() {
+            const timeInput = document.getElementById('timeInput').value;
+            const [hour, minute] = timeInput.split(':').map(Number);
+            
+            greetingTime = { hour, minute };
+            localStorage.setItem('greetingTime', JSON.stringify(greetingTime));
+            
+            updateDisplayTime();
+            updateStatusCard();
+            closeTimeModal();
+            
+            addLog(`인사 시간이 ${timeInput}로 변경되었습니다.`);
+        }
+
+        // 표시 시간 업데이트
+        function updateDisplayTime() {
+            const hour = greetingTime.hour;
+            const minute = greetingTime.minute;
+            const period = hour < 12 ? '오전' : '오후';
+            const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+            const timeStr = `${period} ${displayHour}:${minute.toString().padStart(2, '0')}`;
+            document.getElementById('displayTime').textContent = timeStr;
+        }
+
+        // 알림 시간 체크
+        function checkNotificationTime() {
+            if (!isNotificationEnabled) return;
+
+            const now = new Date();
+            if (now.getHours() === greetingTime.hour && now.getMinutes() === greetingTime.minute) {
+                sendGreeting();
+            }
+        }
+
+        // 인사 보내기
+        function sendGreeting() {
+            const randomMessage = greetingMessages[Math.floor(Math.random() * greetingMessages.length)];
+            
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification('클로드 자동 인사 🤖', {
+                    body: randomMessage,
+                    icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzIiIGZpbGw9IiM2NjdlZWEiLz4KPHN2ZyB4PSIxNiIgeT0iMTYiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Im0yMCAxNXY5YzIwIDUuNjkgMTcuMzEgMyAxNCAzaDEwYzYuNjkgMyA0IDMgNCA5djE1YzQgMTguMDMgNS44NSAyMC42MiA4LjU4IDIwLjkzdjIyaDkuNDJ2MjAuOTNjMTIuMTUgMjAuNjIgMTQgMTguMDMgMTQgMTV2MTBoMTZ2MTVjMTYgMTYuNjUgMTcuMzUgMTggMTkgMThoMjB2MTV6bTggMTFzNy40NSAxMSA3IDEwLjU1IDcgMTBzNy40NSA5IDggOXM5IDkuNDUgOSAxMHM4LjU1IDExIDggMTF6bTE2IDExYzE1LjQ1IDExIDE1IDEwLjU1IDE1IDEwczE1LjQ1IDkgMTYgOXMxNyA5LjQ1IDE3IDEwczE2LjU1IDExIDE2IDExeiIvPgo8L3N2Zz4KPC9zdmc+',
+                    tag: 'claude-greeting',
+                    requireInteraction: true
+                });
+            }
+            
+            addLog(`자동 인사: ${randomMessage}`);
+        }
+
+        // 테스트 인사
+        function testGreeting() {
+            sendGreeting();
+            addLog('테스트 인사를 보냈습니다.');
+        }
+
+        // 클로드 채팅 열기
+        function openClaudeChat() {
+            window.open('https://claude.ai', '_blank');
+        }
+
+        // 로그 추가
+        function addLog(message) {
+            const timestamp = new Date().toLocaleString('ko-KR');
+            const newLog = { timestamp, message };
+            greetingLogs.unshift(newLog);
+            
+            // 최대 50개 로그만 유지
+            if (greetingLogs.length > 50) {
+                greetingLogs = greetingLogs.slice(0, 50);
+            }
+            
+            localStorage.setItem('greetingLogs', JSON.stringify(greetingLogs));
+            updateLogDisplay();
+        }
+
+        // 로그 표시 업데이트
+        function updateLogDisplay() {
+            const logContainer = document.getElementById('logEntries');
+            
+            if (greetingLogs.length === 0) {
+                logContainer.innerHTML = '<div class="empty-log">아직 인사 기록이 없습니다.</div>';
+            } else {
+                logContainer.innerHTML = greetingLogs
+                    .map(log => `
+                        <div class="log-entry">
+                            <div class="log-text">
+                                <strong>[${log.timestamp}]</strong><br>
+                                ${log.message}
+                            </div>
+                        </div>
+                    `).join('');
+            }
+        }
+
+        // 로그 초기화
+        function clearLogs() {
+            if (confirm('모든 인사 기록을 삭제하시겠습니까?')) {
+                greetingLogs = [];
+                localStorage.setItem('greetingLogs', JSON.stringify(greetingLogs));
+                updateLogDisplay();
+                addLog('기록이 초기화되었습니다.');
+            }
+        }
+
+        // PWA 설치 프롬프트 체크
+        function checkInstallPrompt() {
+            let deferredPrompt;
+            
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                document.getElementById('installPrompt').style.display = 'block';
+                
+                document.getElementById('installPrompt').onclick = () => {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('PWA 설치됨');
+                            document.getElementById('installPrompt').style.display = 'none';
+                        }
+                        deferredPrompt = null;
+                    });
+                };
+            });
+        }
+
+        // 서비스 워커 등록
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swScript = `
+                    self.addEventListener('install', (event) => {
+                        console.log('Service Worker 설치됨');
+                    });
+                    
+                    self.addEventListener('fetch', (event) => {
+                        // 기본 fetch 처리
+                    });
+                `;
+                
+                const blob = new Blob([swScript], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then((registration) => {
+                        console.log('Service Worker 등록 성공:', registration);
+                    })
+                    .catch((error) => {
+                        console.log('Service Worker 등록 실패:', error);
+                    });
+            });
+        }
+
+        // 앱 시작
+        init();
+    </script>
+</body>
+</html>
